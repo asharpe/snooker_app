@@ -81,8 +81,9 @@ const	Landing = ({
 
 				<label>
 					Number of reds:
-					<select defaultValue={1} onChange={(event) => setNumberOfReds(event.target.value)}>
-						<option value={1}>1</option>
+					<select defaultValue={10} onChange={(event) => setNumberOfReds(event.target.value)}>
+						{// <option value={1}>1</option>
+						}
 						<option value={6}>6</option>
 						<option value={10}>10</option>
 						<option value={15}>15</option>

@@ -29,6 +29,15 @@ const Main = ({
 	const [ scoreDifference, setScoreDifference ] = useState(0);
 	const [ pointsRemaining, setPointsRemaining ] = useState(numberOfReds * 8 + 27);
 
+	const toggleActivePlayer = (player) => {
+		return () => {
+			if (player === activePlayer) return;
+
+			if (activePlayer === 2) setActivePlayer(1);
+			else setActivePlayer(2);
+		}
+	}
+
 	return (
 		<div>
 			<div className="main-container">
@@ -40,6 +49,7 @@ const Main = ({
 						playerBreak={player1Break}
 						playerBreaks={player1Breaks}
 						playerName={player1Name}
+						handlePlayerChange={toggleActivePlayer(1)}
 					/>
 					<FrameScorer
 						player1Frames={player1Frames}
@@ -56,6 +66,7 @@ const Main = ({
 						playerBreak={player2Break}
 						playerBreaks={player2Breaks}
 						playerName={player2Name}
+						handlePlayerChange={toggleActivePlayer(2)}
 					/>
 				</div>
 				<Buttons

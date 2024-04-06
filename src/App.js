@@ -7,8 +7,8 @@ import Header from './components/Header.js';
 
 
 function App() {
-	const [ player1Name, setPlayer1Name ] = useState('André');
-	const [ player2Name, setPlayer2Name ] = useState('Simøn');
+	const [ player1Name, setPlayer1Name ] = useState('Simøn');
+	const [ player2Name, setPlayer2Name ] = useState('André');
 	const [ matchDuration, setMatchDuration ] = useState(1);
 	const [ numberOfReds, setNumberOfReds ] = useState(15);
 	const [ isMatchSetUp, setIsMatchSetUp ] = useState(false);

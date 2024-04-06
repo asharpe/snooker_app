@@ -15,9 +15,8 @@ const	FrameScorer	= ({
 
 			<div className="frame-scorer-container">
 				<div className="frame-scorer">
-					<h3>Best of {matchDuration}</h3>
-					<h2>Frame Score</h2>
-					<h1>{ player1Frames	} : {	player2Frames } </h1>
+					<h2>Frames</h2>
+					<h1>{ player1Frames	} ({matchDuration}) {	player2Frames } </h1>
 				</div>
 			</div>
 

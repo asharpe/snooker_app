@@ -5,8 +5,18 @@ services:
       - .:/app
       - node-modules:/app/node_modules
     working_dir: /app
-    ports:
-      - "8880:3000"
+    environment:
+      - VIRTUAL_PORT=3000
+      - VIRTUAL_PROTO=http
+    networks:
+      - docker_proxy
+    #ports:
+    #  - "127.0.0.1:80:3000"
+    #  - "8880:3000"
 
 volumes:
   node-modules: {}
+
+networks:
+  docker_proxy:
+    external: true
