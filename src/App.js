@@ -7,9 +7,10 @@ import Header from './components/Header.js';
 
 
 function App() {
-	const [ player1Name, setPlayer1Name ] = useState('');
-	const [ player2Name, setPlayer2Name ] = useState('');
+	const [ player1Name, setPlayer1Name ] = useState('André');
+	const [ player2Name, setPlayer2Name ] = useState('Simøn');
 	const [ matchDuration, setMatchDuration ] = useState(1);
+	const [ numberOfReds, setNumberOfReds ] = useState(15);
 	const [ isMatchSetUp, setIsMatchSetUp ] = useState(false);
 	const [ firstBreaker, setFirstBreaker ] = useState('random');
 	const [ activePlayer, setActivePlayer ] = useState(1);
@@ -28,6 +29,7 @@ function App() {
 					setFirstBreaker={setFirstBreaker}
 					firstBreaker={firstBreaker}
 					setActivePlayer={setActivePlayer}
+					setNumberOfReds={setNumberOfReds}
 				/>
 			)}
 			{isMatchSetUp && (
@@ -43,6 +45,7 @@ function App() {
 					setFirstBreaker={setFirstBreaker}
 					activePlayer={activePlayer}
 					setActivePlayer={setActivePlayer}
+					numberOfReds={numberOfReds}
 				/>
 			)}
 		</div>

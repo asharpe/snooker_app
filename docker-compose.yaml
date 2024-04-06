@@ -1,0 +1,12 @@
+services:
+  app:
+    image: docker-hub.squiz.net/docker/base-images/node:18-alpine
+    volumes:
+      - .:/app
+      - node-modules:/app/node_modules
+    working_dir: /app
+    ports:
+      - "8880:3000"
+
+volumes:
+  node-modules: {}

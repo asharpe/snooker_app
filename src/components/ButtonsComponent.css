@@ -132,9 +132,10 @@ button:hover {
 /* RESPONSIVE RULES */
 
 @media screen and (max-width: 950px) {
-    button {
+   button {
 		font-size: 16px;
 	}
+
 	.red-button {
 		height: 80px;
 		width: 80px;	
@@ -183,6 +184,11 @@ button:hover {
 		justify-items: center;
 		margin: 0px 80px;
 	}
+
+	.balls-button-container.on-red {
+		grid-template-columns: 1fr 1fr;
+		margin: 0px 180px;
+	}
 }
 
 @media screen and (max-width: 640px) {
@@ -198,8 +204,6 @@ button:hover {
 		padding: 10px 15px;
 		border-radius: 8px;
 		font-size: 18px;
-		
-	
 	}
 }
 
@@ -252,8 +256,6 @@ button:hover {
 		padding: 10px 15px;
 		border-radius: 8px;
 		font-size: 14px;
-		
-	
 	}
 }
 

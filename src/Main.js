@@ -15,7 +15,8 @@ const Main = ({
 	firstBreaker,
 	setFirstBreaker,
 	activePlayer,
-	setActivePlayer
+	setActivePlayer,
+	numberOfReds,
 }) => {
 	const [ player1Score, setPlayer1Score ] = useState(0);
 	const [ player2Score, setPlayer2Score ] = useState(0);
@@ -25,6 +26,8 @@ const Main = ({
 	const [ player2Breaks, setPlayer2Breaks ] = useState([]);
 	const [ player1Frames, setPlayer1Frames ] = useState(0);
 	const [ player2Frames, setPlayer2Frames ] = useState(0);
+	const [ scoreDifference, setScoreDifference ] = useState(0);
+	const [ pointsRemaining, setPointsRemaining ] = useState(numberOfReds * 8 + 27);
 
 	return (
 		<div>
@@ -43,6 +46,8 @@ const Main = ({
 						player2Frames={player2Frames}
 						matchDuration={matchDuration}
 						firstBreaker={firstBreaker}
+						pointsRemaining={pointsRemaining}
+						scoreDifference={scoreDifference}
 					/>
 					<Player
 						playerNumber={2}
@@ -81,6 +86,9 @@ const Main = ({
 					matchDuration={matchDuration}
 					setFirstBreaker={setFirstBreaker}
 					firstBreaker={firstBreaker}
+					numberOfReds={numberOfReds}
+					setPointsRemaining={setPointsRemaining}
+					setScoreDifference={setScoreDifference}
 				/>
 			</div>
 		</div>
