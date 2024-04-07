@@ -1,3 +1,4 @@
+
 .active-player {
 	margin: 5px;
 	font-family: 'ABeeZee', sans-serif;
@@ -12,7 +13,8 @@
 	margin: 0;
 	padding-bottom: 20px;
 	text-align: left;
-	color: #005000;
+/*	color: #005000; */
+	color: white !important;
 	font-size: 36px;
 	font-family: 'Orbitron', sans-serif;
 	text-transform: uppercase;

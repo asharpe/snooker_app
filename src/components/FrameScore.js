@@ -16,13 +16,13 @@ const	FrameScorer	= ({
 			<div className="frame-scorer-container">
 				<div className="frame-scorer">
 					<h2>Frames</h2>
-					<h1>{ player1Frames	} ({matchDuration}) {	player2Frames } </h1>
+					<h1 className="number">{player1Frames} ({matchDuration}) {player2Frames} </h1>
 				</div>
 			</div>
 
 			<div className="points-helper">
-				<h3>Remaining: {pointsRemaining}</h3>
-				<h3>Difference: {scoreDifference}</h3>
+				<h3>Remaining: <span className="number">{ pointsRemaining }</span></h3>
+				<h3>Difference: <span className="number">{ scoreDifference }</span></h3>
 			</div>
 		</div>
 	</>;

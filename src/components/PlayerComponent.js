@@ -11,21 +11,14 @@ const	Player =	({
 	 handlePlayerChange,
 })	=>	{
 	return <>
-		{/*	<div className="player-container">
-			<h1 className={activePlayer === playerNumber	? "active-player"	: "non-active-player"}>	{ playerName }</h1>
-			<h2 className={activePlayer === playerNumber	? "active-player"	: "non-active-player"}>Score:	{ playerScore }</h2>
-			<h2 className={activePlayer === playerNumber	? "active-player"	: "non-active-player"}>	Break: {	playerBreak	} </h2>
-			<h2 className={activePlayer === playerNumber	? "active-player"	: "non-active-player"}>High Break: { playerBreaks[0] } </h2>
-		</div>	*/}
-
 		<div
 				className={ activePlayer === playerNumber ? "active-player" : "non-active-player" }
 				onClick={ handlePlayerChange }
 		>
-			<h1>{	playerName }</h1>
-			<h2>Score: { playerScore }</h2>
-			<h2>Break: { playerBreak }</h2>
-			<h2>High	Break: {	playerBreaks[0] }</h2>
+			<h1 className="player-name">{ playerName }</h1>
+			<h2>Score: <span className="number">{ playerScore }</span></h2>
+			<h2>Break: <span className="number">{ playerBreak }</span></h2>
+			<h2>High	Break: <span className="number">{ playerBreaks[0] }</span></h2>
 		</div>
 	</>;
 }

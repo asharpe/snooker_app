@@ -12,7 +12,10 @@
 }
 
 
-
+.number {
+  font-family: "Monaco";
+  color: white !important;
+}
 
 
 
