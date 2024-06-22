@@ -1,40 +1,52 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './Main.css';
 import Player from './components/PlayerComponent.js';
 import Buttons from './components/ButtonsComponent.js';
 import FrameScorer from './components/FrameScore.js';
 
 const Main = ({
-	player1Name,
-	player2Name,
-	matchDuration,
-	setPlayer1Name,
-	setPlayer2Name,
-	setMatchDuration,
-	setIsMatchSetUp,
+	gameState,
+	dispatch,
 	firstBreaker,
-	setFirstBreaker,
-	activePlayer,
-	setActivePlayer,
-	numberOfReds,
 }) => {
-	const [ player1Score, setPlayer1Score ] = useState(0);
-	const [ player2Score, setPlayer2Score ] = useState(0);
-	const [ player1Break, setPlayer1Break ] = useState(0);
-	const [ player2Break, setPlayer2Break ] = useState(0);
-	const [ player1Breaks, setPlayer1Breaks ] = useState([]);
-	const [ player2Breaks, setPlayer2Breaks ] = useState([]);
-	const [ player1Frames, setPlayer1Frames ] = useState(0);
-	const [ player2Frames, setPlayer2Frames ] = useState(0);
+	const [ score1, setScore1 ] = useState(0);
+	const [ score2, setScore2 ] = useState(0);
 	const [ scoreDifference, setScoreDifference ] = useState(0);
-	const [ pointsRemaining, setPointsRemaining ] = useState(numberOfReds * 8 + 27);
+	const [ pointsRemaining, setPointsRemaining ] = useState(gameState.reds * 8 + 27);
+
+	const [ activePlayer, setActivePlayer ] = useState(firstBreaker);
+
+	function otherPlayer(player) {
+		return (player + 2) % 2 + 1;
+	}
+
+	// handler for picking who breaks next
+	useEffect(() => {
+		if (score1 === 0 && score2 === 0) {
+			const breaker = (gameState.frameHistory.length % 2 === 0) ? firstBreaker : otherPlayer(firstBreaker);
+			setActivePlayer(breaker);
+		}
+	}, [gameState, score1, score2, firstBreaker])
+
+	function processFrameEnd(history) {
+		// TODO something useful with this
+		dispatch({
+			type: 'end-frame',
+			scores: [score1, score2],
+			history, // TODO this _may_ be missing the last action or two
+		});
+
+		setScore1(0);
+		setScore2(0);
+		setScoreDifference(0);
+		setPointsRemaining(gameState.reds * 8 + 27);
+	}
 
 	const toggleActivePlayer = (player) => {
 		return () => {
 			if (player === activePlayer) return;
 
-			if (activePlayer === 2) setActivePlayer(1);
-			else setActivePlayer(2);
+			setActivePlayer(otherPlayer(activePlayer));
 		}
 	}
 
@@ -43,63 +55,42 @@ const Main = ({
 			<div className="main-container">
 				<div className="main-banner">
 					<Player
-						playerNumber={1}
-						playerScore={player1Score}
-						activePlayer={activePlayer}
-						playerBreak={player1Break}
-						playerBreaks={player1Breaks}
-						playerName={player1Name}
+						active={activePlayer === 1}
+						playerScore={score1}
+						playerName={gameState.player1.name}
 						handlePlayerChange={toggleActivePlayer(1)}
 					/>
-					<FrameScorer
-						player1Frames={player1Frames}
-						player2Frames={player2Frames}
-						matchDuration={matchDuration}
-						firstBreaker={firstBreaker}
-						pointsRemaining={pointsRemaining}
-						scoreDifference={scoreDifference}
-					/>
 					<Player
-						playerNumber={2}
-						playerScore={player2Score}
-						activePlayer={activePlayer}
-						playerBreak={player2Break}
-						playerBreaks={player2Breaks}
-						playerName={player2Name}
+						active={activePlayer === 2}
+						playerScore={score2}
+						playerName={gameState.player2.name}
 						handlePlayerChange={toggleActivePlayer(2)}
 					/>
 				</div>
 				<Buttons
-					player1Score={player1Score}
-					player2Score={player2Score}
-					activePlayer={activePlayer}
-					setActivePlayer={setActivePlayer}
-					setPlayer1Score={setPlayer1Score}
-					setPlayer2Score={setPlayer2Score}
-					player1Break={player1Break}
-					player2Break={player2Break}
-					setPlayer1Break={setPlayer1Break}
-					setPlayer2Break={setPlayer2Break}
-					player1Breaks={player1Breaks}
-					player2Breaks={player2Breaks}
-					setPlayer1Breaks={setPlayer1Breaks}
-					setPlayer2Breaks={setPlayer2Breaks}
-					player1Frames={player1Frames}
-					player2Frames={player2Frames}
-					setPlayer1Frames={setPlayer1Frames}
-					setPlayer2Frames={setPlayer2Frames}
-					player1Name={player1Name}
-					player2Name={player2Name}
-					setIsMatchSetUp={setIsMatchSetUp}
-					setMatchDuration={setMatchDuration}
-					setPlayer1Name={setPlayer1Name}
-					setPlayer2Name={setPlayer2Name}
-					matchDuration={matchDuration}
-					setFirstBreaker={setFirstBreaker}
-					firstBreaker={firstBreaker}
-					numberOfReds={numberOfReds}
+					dispatch={dispatch}
+					matchDuration={gameState.totalFrames}
+					numberOfReds={gameState.reds}
 					setPointsRemaining={setPointsRemaining}
 					setScoreDifference={setScoreDifference}
+					activePlayer={activePlayer}
+					setActivePlayer={setActivePlayer}
+					score1={score1}
+					score2={score2}
+					setScore1={setScore1}
+					setScore2={setScore2}
+					processFrameEnd={processFrameEnd}
+
+					otherPlayer={otherPlayer}
+				/>
+				<FrameScorer
+					matchDuration={gameState.totalFrames}
+					player1Name={gameState.player1.name}
+					player2Name={gameState.player2.name}
+					player1Frames={gameState.player1.frames}
+					player2Frames={gameState.player2.frames}
+					pointsRemaining={pointsRemaining}
+					scoreDifference={scoreDifference}
 				/>
 			</div>
 		</div>

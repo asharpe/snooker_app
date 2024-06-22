@@ -7,11 +7,15 @@
 	padding: 20px 60px 20px 15px;
 	box-shadow: 0 5px 15px 0px #fffefe;
 	background-color: rgb(55, 119, 55);
+
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
 }
 
-.active-player h1 {
+.active-player span {
 	margin: 0;
-	padding-bottom: 20px;
+/*	padding-bottom: 20px;*/
 	text-align: left;
 /*	color: #005000; */
 	color: white !important;
@@ -35,12 +39,15 @@
 	padding: 20px 60px 20px 15px;
 	background-color: #2f2f2f;
 	box-shadow: 0 5px 15px;
-	
+
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
 }
 
-.non-active-player h1 {
+.non-active-player span {
 	margin: 0;
-	padding-bottom: 20px;
+/*	padding-bottom: 20px;*/
 	text-align: left;
 	color: #979797;
 	font-size: 36px;
@@ -51,9 +58,9 @@
 .non-active-player h2 {
 	margin: 0;
 	padding-bottom: 10px;
-	color: #979797;	
+	color: #979797;
 	font-size: 28px;
-	
+
 }
 
 /* RESPONSIVE RULES  */
@@ -76,13 +83,13 @@
 		font-size: 24px;
 	}
 	.non-active-player h1 {
-		padding-bottom: 15px;	
+		padding-bottom: 15px;
 		font-size: 30px;
 	}
 	.non-active-player h2 {
 		padding-bottom: 10px;
 		font-size: 24px;
-		
+
 	}
 }
 
@@ -102,13 +109,13 @@
 		font-size: 20px;
 	}
 	.non-active-player h1 {
-		padding-bottom: 10px;	
+		padding-bottom: 10px;
 		font-size: 24px;
 	}
 	.non-active-player h2 {
 		padding-bottom: 10px;
 		font-size: 20px;
-		
+
 	}
 }
 
@@ -140,7 +147,7 @@
 		font-size: 18px;
 		text-align: center;
 		padding-bottom: 5px;
-		
+
 	}
 }
 

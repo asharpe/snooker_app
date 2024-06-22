@@ -1,18 +1,18 @@
-import React, { useEffect } from	'react';
+import React, { useState, useEffect } from 'react';
 import './LandingPage.css';
 
 const	Landing = ({
-	setPlayer1Name,
-	setPlayer2Name,
-	setMatchDuration,
-	setIsMatchSetUp,
-	player1Name,
-	player2Name,
-	setFirstBreaker,
+	gameState,
+	dispatch,
 	firstBreaker,
-	setActivePlayer,
-	setNumberOfReds,
+	setFirstBreaker,
 })	=>	{
+
+	const [modalShow, setModalShow] = useState(false);
+
+	const [show, setShow] = useState(false);
+	const handleClose = () => setShow(false);
+	const handleShow = () => setShow(true);
 
 	useEffect(()=>	{
 		window.scrollTo( 0, 0 )
@@ -23,33 +23,16 @@ const	Landing = ({
 		
 		const	inputs =	event.target;
 
-		player1Name = inputs[0].value;
-		player2Name = inputs[1].value;
-		setPlayer1Name(player1Name);
-		setPlayer2Name(player2Name);
-		setNumberOfReds(inputs[2].value);
-		setMatchDuration(inputs[3].value);
-		//setFirstBreaker(inputs[4].value);
-
-		if(firstBreaker === "random")	{
-			const	randomBreaker = Math.floor((Math.random()	* 2) + 1);
-			if	(randomBreaker	=== 1){
-				setFirstBreaker(player1Name)
-				setActivePlayer(1)
+		dispatch({
+			type: 'start-game',
+			inputs: {
+				player1: inputs[0].value,
+				player2: inputs[1].value,
+				reds: inputs[2].value,
+				totalFrames: inputs[3].value,
+				firstBreaker: inputs[4].value,
 			}
-			else {
-				setFirstBreaker(player2Name)
-				setActivePlayer(2)
-			}
-		}
-		else if (firstBreaker === player1Name)	{
-			setActivePlayer(1)
-		}
-		else if (firstBreaker === player2Name)	{
-			setActivePlayer(2)
-		}
-		
-		setIsMatchSetUp(true);
+		});
 	};
 
 	return (
@@ -59,10 +42,9 @@ const	Landing = ({
 					Player 1:
 					<input
 						type="text"
-						onChange={(event)	=>	setPlayer1Name(event.target.value)}
 						placeholder="Enter Name"
 						required
-						defaultValue={player1Name}
+						defaultValue={gameState.player1.name}
 					/>
 				</label>
 				<br />
@@ -71,19 +53,21 @@ const	Landing = ({
 					Player 2:
 					<input
 						type="text"
-						onChange={(event)	=>	setPlayer2Name(event.target.value)}
 						placeholder="Enter Name"
 						required
-						defaultValue={player2Name}
+						defaultValue={gameState.player2.name}
 					/>
 				</label>
 				<br />
 
 				<label>
 					Number of reds:
-					<select defaultValue={10} onChange={(event) => setNumberOfReds(event.target.value)}>
-						{// <option value={1}>1</option>
-						}
+					<select defaultValue={gameState.reds} onChange={(event) => dispatch({
+							type: 'set-reds',
+							count: event.target.value,
+						})}
+					>
+						<option value={1}>1</option>
 						<option value={6}>6</option>
 						<option value={10}>10</option>
 						<option value={15}>15</option>
@@ -93,7 +77,10 @@ const	Landing = ({
 
 				<label>
 					Number of frames:
-					<select defaultValue={5} onChange={(event) => setMatchDuration(event.target.value)}>
+					<select defaultValue={gameState.totalFrames} onChange={(event) => dispatch({
+						type: 'set-frames',
+						count: event.target.value,
+					})}>
 						<option value={1}>1</option>
 						<option value={3}>3</option>
 						<option value={5}>5</option>
@@ -120,8 +107,8 @@ const	Landing = ({
 						Player to break:
 						<select defaultValue="random" onChange={(event) => setFirstBreaker(event.target.value)}>
 							<option value="random">Random</option>
-							<option value={player1Name}>{player1Name}</option>
-							<option value={player2Name}>{player2Name}</option>
+							<option value={1}>{gameState.player1.name}</option>
+							<option value={2}>{gameState.player2.name}</option>
 						</select>
 					</label>
 				<br />

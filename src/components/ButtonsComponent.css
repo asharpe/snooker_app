@@ -1,17 +1,23 @@
 .buttons-container {
 	width: 100%;
 	margin: 50px 0px;
-	
+	flex: auto;
+
+	display: flex;
+	flex-direction: column;
 }
+
 .balls-button-container {
 	display: flex;
 	justify-content: center;
 }
 
 .games-button-container {
-	display: flex;
+/*	display: flex;*/
+	display: grid;
 	justify-content: center;
-	margin-top: 40px;
+	margin: 40px auto 0;
+	grid-template-columns: 1fr 2fr 1fr;
 }
 
 button {
@@ -23,9 +29,22 @@ button {
 	text-align: center;
 }
 
+button:disabled {
+	opacity: 50%;
+}
+
 button:hover {
 	cursor: pointer;
 	box-shadow: 0 5px 15px 0px #0afc02;
+}
+
+.white-button {
+	background-color: white;
+	color: black;
+	height: 100px;
+	width: 100px;
+	border-radius: 50%;
+	text-align: center;
 }
 
 .red-button {
@@ -35,17 +54,15 @@ button:hover {
 	width: 100px;
 	border-radius: 50%;
 	text-align: center;
-	
 }
 
 .yellow-button {
 	background-color: #fbce02;
-	color: white;
+	color: black;
 	height: 100px;
 	width: 100px;
 	border-radius: 50%;
 	text-align: center;
-	
 }
 
 .green-button {
@@ -55,7 +72,7 @@ button:hover {
 	width: 100px;
 	border-radius: 50%;
 	text-align: center;
-	
+
 }
 
 .brown-button {
@@ -65,7 +82,7 @@ button:hover {
 	width: 100px;
 	border-radius: 50%;
 	text-align: center;
-	
+
 }
 
 .blue-button {
@@ -75,7 +92,7 @@ button:hover {
 	width: 100px;
 	border-radius: 50%;
 	text-align: center;
-	
+
 }
 
 .pink-button {
@@ -94,7 +111,7 @@ button:hover {
 	border-radius: 50%;
 	border: solid 1px #aaaaaa;
 	text-align: center;
-	
+
 }
 
 .foul-button {
@@ -104,7 +121,7 @@ button:hover {
 	width: 100px;
 	border-radius: 50%;
 	text-align: center;
-	
+
 }
 
 .game-button {
@@ -138,29 +155,29 @@ button:hover {
 
 	.red-button {
 		height: 80px;
-		width: 80px;	
+		width: 80px;
 	}
-	
+
 	.yellow-button {
 		height: 80px;
 		width: 80px;
 	}
-	
+
 	.green-button {
 		height: 80px;
-		width: 80px;	
+		width: 80px;
 	}
-	
+
 	.brown-button {
 		height: 80px;
 		width: 80px;
 	}
-	
+
 	.blue-button {
 		height: 80px;
 		width: 80px;
 	}
-	
+
 	.pink-button {
 		height: 80px;
 		width: 80px;
@@ -169,7 +186,7 @@ button:hover {
 		height: 80px;
 		width: 80px;
 	}
-	
+
 	.foul-button {
 		height: 80px;
 		width: 80px;
@@ -184,17 +201,27 @@ button:hover {
 		justify-items: center;
 		margin: 0px 80px;
 	}
+/*
+	.balls-button-container.foul {
+		margin: 0px;
+	}
 
 	.balls-button-container.on-red {
-		grid-template-columns: 1fr 1fr;
+		grid-template-columns: 1fr 1fr 1fr 1fr;
 		margin: 0px 180px;
 	}
+
+	.balls-button-container.on-red.foul {
+		margin: 0px;
+	}
+*/
 }
 
 @media screen and (max-width: 640px) {
     .games-button-container {
 		display: grid;
-		grid-template-columns: 1fr;
+		/*grid-template-columns: 1fr;*/
+		grid-template-columns: 1fr 1fr 1fr 1fr;
 		margin-top: 20px;
 		justify-items: center;
 	}
@@ -214,41 +241,41 @@ button:hover {
 	}
 	.red-button {
 		height: 70px;
-		width: 70px;	
+		width: 70px;
 	}
-	
+
 	.yellow-button {
 		height: 70px;
-		width: 70px;	
+		width: 70px;
 	}
-	
+
 	.green-button {
 		height: 70px;
-		width: 70px;		
+		width: 70px;
 	}
-	
+
 	.brown-button {
 		height: 70px;
-		width: 70px;	
+		width: 70px;
 	}
-	
+
 	.blue-button {
 		height: 70px;
-		width: 70px;	
+		width: 70px;
 	}
-	
+
 	.pink-button {
 		height: 70px;
-		width: 70px;	
+		width: 70px;
 	}
 	.black-button {
 		height: 70px;
-		width: 70px;	
+		width: 70px;
 	}
-	
+
 	.foul-button {
 		height: 70px;
-		width: 70px;	
+		width: 70px;
 	}
 	.game-button {
 		margin: 10px;
@@ -259,5 +286,21 @@ button:hover {
 	}
 }
 
+.foul-dialog {
+	border-radius: 10px;
+	boxShadow: 0px 10px 50px hsla(0, 0%, 0%, 0.33);
+	width: 50%;
+	height: 30%;
+	background: linear-gradient(
+	  rgba(0, 0, 0, 0.5),
+	  rgba(0, 0, 0, 0.5)
+	), url("../assets/snookerhero.jpg");
+	background-position: center; 
+	background-repeat: no-repeat; 
+	background-size: cover;
+}
 
+.current-break {
+	flex: auto;
+}
 

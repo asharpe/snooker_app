@@ -1,22 +1,35 @@
 services:
   app:
-    image: docker-hub.squiz.net/docker/base-images/node:18-alpine
+    build:
+      context: .
+      target: app-dev
+      args:
+        purpose: dev
     volumes:
       - .:/app
       - node-modules:/app/node_modules
-    working_dir: /app
-    environment:
-      - VIRTUAL_PORT=3000
-      - VIRTUAL_PROTO=http
+    user: root
+    entrypoint:
+      - sh
+      - -c
     networks:
-      - docker_proxy
-    #ports:
-    #  - "127.0.0.1:80:3000"
-    #  - "8880:3000"
+      - proxy
+    environment:
+      # let the websocket work
+      - PORT=80
+      - VIRTUAL_PORT=80
+      - VIRTUAL_HOST=snooker.docker,not-a-host.ydns.eu
+      - LETSENCRYPT_HOST=not-a-host.ydns.eu
+      - HTTPS_METHOD=redirect
+    command:
+      - |
+        set -x
+        npm i
+        node --openssl-legacy-provider node_modules/react-scripts/scripts/start.js | cat
 
 volumes:
   node-modules: {}
 
 networks:
-  docker_proxy:
+  proxy:
     external: true

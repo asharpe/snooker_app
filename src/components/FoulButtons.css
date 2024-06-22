@@ -1,4 +1,57 @@
-/* RESPONSIVE RULES */
+[data-reach-dialog-overlay] {
+	background: hsla(0, 0%, 0%, 0.85);
+}
+
+.foul {
+	height: 65%;
+}
+
+.foul .row {
+	display: flex;
+	flex-direction: row;
+}
+
+.foul .games-button-container {
+	margin: 0;
+}
+
+.foul .game-button {
+	margin: 7px;
+}
+
+.foul-buttons-container {
+	height: 100%;
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr 1fr;
+	align-content: space-evenly;
+	justify-items: center;
+}
+
+.foul-buttons-container button {
+	height: 60px;
+	width: 60px;	
+	flex: auto;
+}
+
+.foul-buttons-container .base-NumberInput-root button {
+	height: initial;
+	width: initial;
+}
+
+.remove-reds {
+	flex: auto;
+	align-content: flex-end;
+}
+
+.remove-reds span {
+	flex: auto;
+	align-content: space-around;
+}
+
+.row.game-button {
+	width: initial;
+}
+
 
 /* @media screen and (max-width: 950px) {
     button {

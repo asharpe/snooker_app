@@ -1,53 +1,64 @@
-import React, { useState } from 'react';
+import React, { useState, useReducer } from 'react';
+import { produce } from 'immer';
+
+import Constants from './Constants.js';
+import reducer from './Reducer.js';
 import './App.css';
 import Main from './Main.js';
 import Landing from './components/LandingPage.js';
 import Header from './components/Header.js';
+import Summary from './Summary.js';
 
 
+// https://hswolff.com/blog/level-up-usereducer-with-immer/
+const immerReducer = produce(reducer);
 
 function App() {
-	const [ player1Name, setPlayer1Name ] = useState('Simøn');
-	const [ player2Name, setPlayer2Name ] = useState('André');
-	const [ matchDuration, setMatchDuration ] = useState(1);
-	const [ numberOfReds, setNumberOfReds ] = useState(15);
-	const [ isMatchSetUp, setIsMatchSetUp ] = useState(false);
+	const [ gameState, dispatch ] = useReducer(immerReducer, Object.assign({}, Constants.initialGameState));
 	const [ firstBreaker, setFirstBreaker ] = useState('random');
-	const [ activePlayer, setActivePlayer ] = useState(1);
+
+	// helper to get from the Landing page into the Main page
+	function getFirstBreaker(firstBreakerInput) {
+		if(firstBreakerInput !== "random")	{
+			return firstBreakerInput;
+		}
+
+		return Math.floor((Math.random()	* 2) + 1);
+	}
+
+	function applyFirstBreaker(firstBreakerInput) {
+		return setFirstBreaker(getFirstBreaker(firstBreakerInput));
+	}
+
+	let content;
+
+	if (gameState.inPlay) {
+		content = <Main
+			gameState={gameState}
+			dispatch={dispatch}
+			firstBreaker={getFirstBreaker(firstBreaker)}
+		/>;
+	}
+	else if (gameState.frameHistory.length > 0) {
+		content = <Summary
+			state={gameState}
+			restart={() => dispatch({
+				type: 'new-game',
+			})}
+		/>;
+	}
+	else {
+		content = <Landing
+			gameState={gameState}
+			dispatch={dispatch}
+			setFirstBreaker={applyFirstBreaker}
+		/>;
+	}
 
 	return (
 		<div className="App">
 			<Header />
-			{!isMatchSetUp && (
-				<Landing
-					setPlayer1Name={setPlayer1Name}
-					setPlayer2Name={setPlayer2Name}
-					setMatchDuration={setMatchDuration}
-					setIsMatchSetUp={setIsMatchSetUp}
-					player1Name={player1Name}
-					player2Name={player2Name}
-					setFirstBreaker={setFirstBreaker}
-					firstBreaker={firstBreaker}
-					setActivePlayer={setActivePlayer}
-					setNumberOfReds={setNumberOfReds}
-				/>
-			)}
-			{isMatchSetUp && (
-				<Main
-					player1Name={player1Name}
-					player2Name={player2Name}
-					matchDuration={matchDuration}
-					setPlayer1Name={setPlayer1Name}
-					setPlayer2Name={setPlayer2Name}
-					setMatchDuration={setMatchDuration}
-					setIsMatchSetUp={setIsMatchSetUp}
-					firstBreaker={firstBreaker}
-					setFirstBreaker={setFirstBreaker}
-					activePlayer={activePlayer}
-					setActivePlayer={setActivePlayer}
-					numberOfReds={numberOfReds}
-				/>
-			)}
+			{content}
 		</div>
 	);
 }
